@@ -15,8 +15,12 @@ resource "azurerm_virtual_network" "default" {
 }
 
 module "subnets" {
-  source               = "./module"
+  source               = "../module"
   resource_group_name  = azurerm_resource_group.default.name
   virtual_network_name = azurerm_virtual_network.default.name
   subnets              = local.subnets
+}
+
+output "local_subnets" {
+  value = module.subnets.subnet_local
 }
