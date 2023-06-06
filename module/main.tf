@@ -34,3 +34,7 @@ resource "azurerm_subnet" "sub" {
     }
   }
 }
+
+output "subnet_local" {
+  value = local.var_subnets
+}

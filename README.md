@@ -33,3 +33,50 @@ No modules.
 ## Outputs
 
 No outputs.
+
+## Local Data Manipulation
+
+```terraform
+local_subnets = {
+  "curlybill" = {
+    "address_prefixes" = tolist([
+      "10.0.0.0/24",
+    ])
+    "delegations" = {}
+    "name" = "curlybill"
+    "private_endpoint_enabled" = true
+    "service_endpoints" = tolist(null) /* of string */
+  }
+  "docholiday" = {
+    "address_prefixes" = tolist([
+      "10.0.2.0/24",
+    ])
+    "delegations" = tomap({
+      "appsvc" = {
+        "name" = "appsvc"
+        "service_delegation_actions" = tolist([
+          "Microsoft.Network/virtualNetworks/subnets/action",
+        ])
+        "service_delegation_name" = "Microsoft.Web/serverFarms"
+      }
+    })
+    "name" = "docholiday"
+    "private_endpoint_enabled" = false
+    "service_endpoints" = tolist([
+      "Microsoft.KeyVault",
+    ])
+  }
+  "wyattearp" = {
+    "address_prefixes" = tolist([
+      "10.0.1.0/24",
+    ])
+    "delegations" = {}
+    "name" = "wyattearp"
+    "private_endpoint_enabled" = false
+    "service_endpoints" = tolist([
+      "Microsoft.KeyVault",
+      "Microsoft.Storage",
+    ])
+  }
+}
+```
